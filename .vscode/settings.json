@@ -7,6 +7,9 @@
             "file:///home/matus/Projects/ansible-hl/docker.yml",
             "file:///home/matus/Projects/ansible-hl/swarm.yml"
         ],
-        "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "file:///home/matus/Projects/ansible-hl/svc/stack.yml"
+        "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
+            "file:///home/matus/Projects/ansible-hl/svc/stack.yml",
+            "file:///home/matus/Projects/ansible-homelab/svc/stack.yml"
+        ]
     }
 }
