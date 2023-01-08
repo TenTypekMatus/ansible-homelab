@@ -1,4 +1,4 @@
-  become: yes
+  become: true
   tasks:
     - name: Initialize Swarm
       community.docker.docker_swarm:
