@@ -1,3 +1,4 @@
+  ---
   become: true
   tasks:
     - name: Initialize Swarm
@@ -9,7 +10,7 @@
         hosts: MatusServer
         state: join
         advertise_addr: 192.168.420.69
-        join_token: SWMTKN-1-5a6ddkq13u69namgni8o1b7f2ibln5m0c00km6ac19dmm6kqaq-16kzy7m1tfw6raq76is9seub3
+        join_token: 
         remote_addrs:
           - 192.168.1.1:2377
     - name: Deploy stack from a compose file
