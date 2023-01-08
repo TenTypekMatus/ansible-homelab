@@ -15,4 +15,7 @@ jobs:
 
       - name: Run ansible-lint
         # replace `main` with any valid ref, or tags like `v6`
-        run: ansible-lint *.yml
+        run: |
+          sudo apt update
+          sudo apt install -y ansible ansible-lint
+          ansible-lint *.yml
