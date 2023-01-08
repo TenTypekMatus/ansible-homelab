@@ -1,0 +1,27 @@
+all:
+  hosts:
+    MatusServer:
+      ansible_host:
+      ansible_user: matus
+    ControlPlane:
+      ansible_host:
+      ansible_user: matus
+    MatuusPC:
+      ansible_host:
+      ansible_user: root
+    acer: # TrueNAS server
+      ansible_host:
+      ansible_user: matus
+
+alma:
+  hosts:
+    MatusServer:
+    ControlPlane:
+
+pve:
+  hosts:
+    MatuusPC:
+
+truenas:
+  hosts:
+    acer:

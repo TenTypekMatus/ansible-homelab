@@ -1,0 +1,21 @@
+- hosts: alma
+  become: yes
+  tasks:
+    - name: Set up Docker CE repo
+      ansible.builtin.yum_repository:
+        name: Docker CE
+        description: A repo for Docker
+        baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
+    - name: Install Docker (The CE version)
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+    - name: Start Docker
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes

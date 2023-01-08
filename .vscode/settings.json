@@ -1,0 +1,12 @@
+{
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": [
+            "file:///home/matus/Projects/ansible-hl/security/autoupdates.yml",
+            "file:///home/matus/Projects/ansible-hl/autoupdates.yml",
+            "file:///home/matus/Projects/ansible-hl/security.yml",
+            "file:///home/matus/Projects/ansible-hl/docker.yml",
+            "file:///home/matus/Projects/ansible-hl/swarm.yml"
+        ],
+        "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "file:///home/matus/Projects/ansible-hl/svc/stack.yml"
+    }
+}

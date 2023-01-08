@@ -1,0 +1,36 @@
+- hosts: alma
+  become: yes
+  tasks:
+    - name: Install dnf-automatic
+      ansible.builtin.dnf:
+        name: dnf-automatic
+        state: present
+    - name: Start dnf-automatic timer
+      ansible.builtin.service:
+        name: dnf-automatic.timer
+        state: started
+        enabled: yes
+    - name: Allow sshd to listen on tcp port 22
+      community.general.seport:
+        ports: 22
+        proto: tcp
+        setype: ssh_port_t
+        state: present
+    - name: Summon SELinux
+      ansible.posix.selinux:
+        policy: targeted
+        state: enforcing
+    - name: Set up crowdsec repo
+      ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.rpm.sh | sudo bash
+    - name: Install crowdsec
+      ansible.builtin.dnf:
+        name: 
+        - crowdsec
+        - crowdsec-firewall-bouncer-iptables
+        state: present
+    
+    - name: Start crowdsec
+      ansible.builtin.service:
+        name: crowdsec
+        state: started
+        enabled: yes
