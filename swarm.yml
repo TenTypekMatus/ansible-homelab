@@ -2,21 +2,21 @@
   - hosts: alma
     become: yes
     tasks:
-      - name: Initialize Swarm
-        community.docker.docker_swarm:
-          hosts: ControlPlane
-          state: present
-      - name: Node adding
-        community.docker.docker_swarm:
-          hosts: MatusServer
-          state: join
-          advertise_addr: 192.168.420.69
-          join_token: 
-          remote_addrs:
-            - 192.168.1.1:2377
-      - name: Deploy stack from a compose file
-        community.docker.docker_stack:
-          state: present
-          name: 'Homelab stack'
-          compose:
-            - svc/stack.yml
+     - name: Initialize Swarm
+       community.docker.docker_swarm:
+         hosts: ControlPlane
+         state: present
+     - name: Node adding
+       community.docker.docker_swarm:
+         hosts: MatusServer
+         state: join
+         advertise_addr: 192.168.420.69
+         join_token: 
+         remote_addrs:
+           - 192.168.1.1:2377
+     - name: Deploy stack from a compose file
+       community.docker.docker_stack:
+         state: present
+         name: 'Homelab stack'
+         compose:
+           - svc/stack.yml
