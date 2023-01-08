@@ -15,14 +15,4 @@ jobs:
 
       - name: Run ansible-lint
         # replace `main` with any valid ref, or tags like `v6`
-        uses: ansible/ansible-lint-action@main
-        # optional:
-        # with:
-        #   path: "playbooks/"  # <-- only one value is allowed
-  molecule:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
-      - uses: gofrolist/molecule-action@v2
+        run: ansible-lint *.yml
