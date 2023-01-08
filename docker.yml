@@ -1,6 +1,6 @@
 ---
 - hosts: alma
-  become: yes
+  become: true
   tasks:
     - name: Set up Docker CE repo
       ansible.builtin.yum_repository:
@@ -19,4 +19,4 @@
       ansible.builtin.service:
         name: docker
         state: started
-        enabled: yes
+        enabled: true
