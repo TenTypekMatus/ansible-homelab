@@ -1,6 +1,7 @@
 ---
 - hosts: alma
-  become: true
+  become: yes
+  
   tasks:
     - name: Install dnf-automatic
       ansible.builtin.dnf:
@@ -10,7 +11,7 @@
       ansible.builtin.service:
         name: dnf-automatic.timer
         state: started
-        enabled: true
+        enabled: yes
     - name: Allow sshd to listen on tcp port 22
       community.general.seport:
         ports: 
@@ -41,4 +42,4 @@
       ansible.builtin.service:
         name: crowdsec
         state: started
-        enabled: true
+        enabled: yes
