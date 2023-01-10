@@ -1,46 +1,54 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+  
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "almalinux/9"
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+  config.ssh.insert_key = false
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network "public_network"
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "playbook.yml"
+  config.vm.provider :virtualbox do |v|
+    v.memory = 4096
+    v.cpus = 2
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
   end
+
+  # ELK server.
+  config.vm.define "logs" do |logs|
+    logs.vm.hostname = "logs.test"
+    logs.vm.network :private_network, ip: "192.168.56.90"
+
+    logs.vm.provision :ansible do |ansible|
+      ansible.playbook = "site.yml"
+      ansible.inventory_path = "inventory.yml"
+      ansible.become = true
+    end
+  end
+
+  # Web server.
+  config.vm.define "web" do |web|
+    web.vm.hostname = "web.test"
+    web.vm.network :private_network, ip: "192.168.56.91"
+
+    web.vm.provider :virtualbox do |v|
+      v.memory = 512
+      v.cpus = 1
+    end
+
+    web.vm.provision :ansible do |ansible|
+      ansible.playbook = "site.yml"
+      ansible.inventory_path = "./inventory.yml"
+      ansible.become = true
+    end
+  end
+
 end
+
