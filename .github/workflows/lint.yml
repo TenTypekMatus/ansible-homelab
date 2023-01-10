@@ -2,7 +2,7 @@
 # This is a basic workflow to help you get started with Actions
 name: Playbook lint # feel free to pick your own name
 on: push
-  schedule: 1 2 3 4 5
+
 
 jobs:
   Docker:
