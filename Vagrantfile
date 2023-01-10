@@ -19,11 +19,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # 1st server.
-  config.vm.define "logs" do |logs|
-    logs.vm.hostname = "logs.test"
-    logs.vm.network :private_network, ip: "192.168.56.90"
+  config.vm.define "master" do |master|
+    master.vm.hostname = "master.test"
+    master.vm.network :private_network, ip: "192.168.56.90"
 
-    logs.vm.provision :ansible do |ansible|
+    master.vm.provision :ansible do |ansible|
       ansible.playbook = "site.yml"
       ansible.inventory_path = "inventory.yml"
       ansible.become = true
@@ -31,16 +31,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # 2nd server.
-  config.vm.define "web" do |web|
-    web.vm.hostname = "web.test"
-    web.vm.network :private_network, ip: "192.168.56.91"
+  config.vm.define "slave" do |slave|
+    web.vm.hostname = "slave.test"
+    slave.vm.network :private_network, ip: "192.168.56.91"
 
-    web.vm.provider :virtualbox do |v|
+    slave.vm.provider :virtualbox do |v|
       v.memory = 512
       v.cpus = 1
     end
 
-    web.vm.provision :ansible do |ansible|
+    slave.vm.provision :ansible do |ansible|
       ansible.playbook = "site.yml"
       ansible.inventory_path = "./inventory.yml"
       ansible.become = true
