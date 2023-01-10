@@ -1,7 +1,8 @@
 
 # This is a basic workflow to help you get started with Actions
 name: Playbook lint # feel free to pick your own name
-on: [push, pull_request]
+on: push
+
 
 jobs:
   Docker:
@@ -18,20 +19,22 @@ jobs:
 
       - name: Run the playbooks on the server
         run: |
-        sudo dnf update
-        sudo dnf in -y epel-release
-        sudo dnf in -y ansible
-        ansible-playbook --connection=local site.yml
+          sudo dnf update
+          sudo dnf in -y epel-release
+          sudo dnf in -y ansible
+          ansible-playbook --connection=local site.yml
   Vagrant:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup Vagrant
         run: |
-        sudo apt update
-        sudo apt install -y virtualbox vagrant
-        vagrant up --provision
-
+          sudo apt update
+          sudo apt install -y virtualbox vagrant
+          vagrant up --provision
+  BareMetal:
+    runs-on: ubuntu-latest
+    steps:
       - name: Run ansible-lint
         # replace `main` with any valid ref, or tags like `v6`
         run: |
