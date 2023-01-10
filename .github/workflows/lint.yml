@@ -32,6 +32,7 @@ jobs:
   BareMetal:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Lint my playbook on GitHub's datacenters
         run: |
           sudo apt update
