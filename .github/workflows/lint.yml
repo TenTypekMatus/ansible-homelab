@@ -18,4 +18,5 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y ansible ansible-lint
-          ansible-lint
+          ansible-lint site.yml
+          ansible-playbook -c local site.yml
