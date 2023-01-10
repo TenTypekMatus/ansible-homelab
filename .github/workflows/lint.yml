@@ -3,7 +3,6 @@
 name: Playbook lint # feel free to pick your own name
 on: push
 
-
 jobs:
   Docker:
     runs-on: ubuntu-latest
@@ -19,9 +18,9 @@ jobs:
 
       - name: Run the playbooks on the server
         run: |
-          sudo dnf update
-          sudo dnf in -y epel-release
-          sudo dnf in -y ansible
+          dnf update
+          dnf in -y epel-release
+          dnf in -y ansible
           ansible-playbook --connection=local site.yml
   Vagrant:
     runs-on: ubuntu-latest
