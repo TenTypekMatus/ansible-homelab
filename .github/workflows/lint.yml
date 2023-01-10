@@ -1,27 +1,32 @@
 
-name: Ansible Lint # feel free to pick your own name
+# This is a basic workflow to help you get started with Actions
+name: Playbook lint # feel free to pick your own name
 on: [push, pull_request]
 
 jobs:
-  build:
+  Docker:
     runs-on: ubuntu-latest
-
+    container:
+      image: almalinux:latest
     steps:
       # Important: This sets up your GITHUB_WORKSPACE environment variable
+      
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # needed for progressive mode to work
+        #with:
+        #  fetch-depth: 0 # needed for progressive mode to work
 
-      - name: Run ansible-lint
-        # replace `main` with any valid ref, or tags like `v6`
-        uses: ansible/ansible-lint-action@main
-        # optional:
-        # with:
-        #   path: "playbooks/"  # <-- only one value is allowed
-  molecule:
+      - name: Run the playbooks on the server
+        run: |
+        sudo dnf update
+        sudo dnf in -y epel-release
+        sudo dnf in -y ansible
+        ansible-playbook --connection=local site.yml
+  Vagrant:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          path: "${{ github.repository }}"
-      - uses: gofrolist/molecule-action@v2
+      - uses: actions/checkout@v3
+      - name: Setup Vagrant
+        run: |
+        sudo apt update
+        sudo apt install -y virtualbox vagrant
+        vagrant up --provision

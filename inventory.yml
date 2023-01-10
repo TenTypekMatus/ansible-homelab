@@ -2,10 +2,10 @@
 all:
   hosts:
     MatusServer:
-      ansible_host:
+      ansible_host: 0.0.0.0
       ansible_user: matus
     ControlPlane:
-      ansible_host:
+      ansible_host: 0.0.0.0
       ansible_user: matus
     MatuusPC:
       ansible_host:
