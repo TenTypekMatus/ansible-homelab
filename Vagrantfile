@@ -4,9 +4,6 @@
 Vagrant.configure("2") do |config|
   
 
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -21,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  # ELK server.
+  # 1st server.
   config.vm.define "logs" do |logs|
     logs.vm.hostname = "logs.test"
     logs.vm.network :private_network, ip: "192.168.56.90"
@@ -33,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  # Web server.
+  # 2nd server.
   config.vm.define "web" do |web|
     web.vm.hostname = "web.test"
     web.vm.network :private_network, ip: "192.168.56.91"
@@ -49,6 +46,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.become = true
     end
   end
-
 end
-
