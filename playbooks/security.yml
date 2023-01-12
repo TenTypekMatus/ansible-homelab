@@ -5,7 +5,9 @@
   tasks:
     - name: Install dnf-automatic
       ansible.builtin.dnf:
-        name: dnf-automatic
+        name: 
+         - dnf-automatic
+         - python-policycoreutils
         state: present
     - name: Start dnf-automatic 
       ansible.builtin.service:
@@ -27,9 +29,7 @@
         policy: targeted
         state: enforcing
     - name: download crowdsec repo script
-      ansible.builtin.fetch:
-        src: https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.rpm.sh
-        dest: script.rpm.sh
+      ansible.builtin.shell: curl -LO https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.rpm.sh
     - name: Run CrowdSec setup script
       ansible.builtin.shell: chmod +x script.rpm.sh; ./script.rpm.sh
     - name: Install crowdsec

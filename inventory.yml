@@ -2,11 +2,11 @@
 all:
   hosts:
     MatusServer:
-      ansible_host: 0.0.0.0
-      ansible_user: matus
+      ansible_host: 192.168.122.47
+      ansible_user: typekmatus
     ControlPlane:
-      ansible_host: 0.0.0.0
-      ansible_user: matus
+      ansible_host: 192.168.122.229
+      ansible_user: typekmatus
     MatuusPC:
       ansible_host:
       ansible_user: root
