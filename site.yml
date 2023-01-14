@@ -1,7 +1,0 @@
----
-- name: Security first
-  ansible.builtin.import_playbook: playbooks/security.yml
-- name: Setup docker
-  ansible.builtin.import_playbook: playbooks/docker.yml
-- name: Build swarm
-  ansible.builtin.import_playbook: playbooks/swarm.yml
